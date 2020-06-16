@@ -11,12 +11,16 @@
 
 makeCacheMatrix <- function(x = matrix()) {
   Inverse <- NULL
+  #set value of matrix
   set <- function(y) {
     x <<- y
     Inverse <<- NULL
   }
+  #get value of the matrix
   get <- function() x
+  #set the value of Inverse matrix
   setInverse <- function(InverseMatrix) Inverse <<- InverseMatrix
+  # get value of Inverse Matrix
   getInverse<- function() Inverse
   list(set = set, get = get,
        setInverse = setInverse,
@@ -29,10 +33,14 @@ makeCacheMatrix <- function(x = matrix()) {
 
 cacheSolve <- function(x, ...) {
   Inverse <- x$getInverse()
+  
+  #If value of Inverse Matrix is set, then return the value
   if(!is.null(Inverse)) {
     message("getting cached data")
     return(Inverse)
   }
+  
+  #If it is not
   data <- x$get()
   Inverse <- solve(data, ...)
   x$setInverse(Inverse)
